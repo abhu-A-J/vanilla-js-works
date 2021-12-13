@@ -15,7 +15,34 @@
   </head>
 
   <body>
-    <h1>Hello World</h1>
+    <div id="_app">
+      <!-- Loading Spinner -->
+      <div class="loader" id="loader"></div>
+
+      <!-- Quote Container -->
+      <div class="quote-container">
+        <!-- Quote Text -->
+        <h1 class="quote-text" id="quote-container">
+          Eye for an eye makes the whole world blind
+        </h1>
+        <!-- Qoute Author -->
+        <p class="quote-author" id="quote-author">Mahatama Gandhi</p>
+
+        <!-- Button Container -->
+        <div class="btn-container">
+          <button class="twitter-btn" title="Tweet the quote" id="tweet-btn">
+            Tweet!
+          </button>
+          <button
+            class="new-quote-btn"
+            title="Get a new quote"
+            id="new-quote-btn"
+          >
+            New Quote
+          </button>
+        </div>
+      </div>
+    </div>
 
     <!-- To support native ES Modules  incase needed -->
     <script type="module" src="scripts/index.js"></script>
