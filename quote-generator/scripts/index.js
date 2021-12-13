@@ -33,6 +33,13 @@ function tweetTheQuote() {
   window.open(tweetUrl, '_blank');
 }
 
+async function getNewQuote() {
+  const randomNumber = generateRandomNumber(quotesList.length);
+  const quote = quotesList[randomNumber];
+  quoteText.textContent = quote.text;
+  qouteAuthor.textContent = quote.author || 'Anonymous';
+}
+
 /* Get list of qoutes from the API */
 async function getQoutes() {
   try {
@@ -40,21 +47,18 @@ async function getQoutes() {
     const BASE_URL = 'https://type.fit/api/quotes';
     const response = await fetch(BASE_URL);
     quotesList = await response.json();
+    await getNewQuote();
     shouldShowLoadingSpinner(false);
   } catch (error) {
     console.error('Error Fetching quotes', error);
   }
 }
 
-function getNewQuote() {
-  const randomNumber = generateRandomNumber(quotesList.length);
-  const quote = quotesList[randomNumber];
-  quoteText.textContent = quote.text;
-  qouteAuthor.textContent = quote.author || 'Anonymous';
+function initilize() {
+  /* Event Listeners */
+  tweetQuoteBtn.addEventListener('click', tweetTheQuote);
+  showNewQuoteBtn.addEventListener('click', getNewQuote);
+  getQoutes();
 }
 
-/* Event Listeners */
-tweetQuoteBtn.addEventListener('click', tweetTheQuote);
-showNewQuoteBtn.addEventListener('click', getNewQuote);
-
-getQoutes();
+initilize();
