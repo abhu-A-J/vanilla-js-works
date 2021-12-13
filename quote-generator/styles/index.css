@@ -1,11 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400&display=swap');
 
+:root {
+  --twitter-blue: #1da1f2;
+  --gray: #f3f3f3;
+  --border-radius: 10px;
+  --text-color: #333;
+}
+
 body {
   background: url('../images/sprinkle-background.svg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
   font-family: 'Roboto Mono', monospace, sans-serif;
+  color: var(--gray);
 }
 
 #_app {
@@ -13,4 +21,89 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+/* Loading Spinner */
+.loader {
+  border: 16px solid var(--gray);
+  border-top: 16px solid var(--twitter-blue);
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Quote-Container */
+.quote-container {
+  max-width: 90rem;
+  width: auto;
+  border-radius: var(--border-radius);
+  background: rgba(0, 0, 0, 0.2);
+  padding: 2rem;
+  text-align: center;
+}
+
+/* Quote Text */
+.quote-text {
+  font-size: 3.5rem;
+  font-weight: 400;
+}
+
+/* Quote Author */
+.quote-author {
+  font-size: 2.5rem;
+  font-weight: 300;
+  font-style: italic;
+  margin: 2rem 0;
+}
+
+/* Button Container */
+.btn-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-container button {
+  font-size: 1.5rem;
+  padding: 1rem 2rem;
+  border-radius: var(--border-radius);
+  outline: 0;
+  border: 0;
+  cursor: pointer;
+}
+
+/* Twitter Button */
+.twitter-btn {
+  background: var(--twitter-blue);
+  color: var(--gray);
+}
+
+.twitter-btn:hover {
+  filter: brightness(110%);
+}
+
+/* Get new quote button */
+.new-quote-btn {
+  background: var(--gray);
+  color: var(--text-color);
+}
+
+@media only screen and (max-width: 1000px) {
+  .quote-container {
+    width: 90%;
+  }
+
+  .quote-text {
+    font-size: 3rem;
+  }
 }
