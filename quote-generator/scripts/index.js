@@ -5,7 +5,11 @@ const qouteAuthor = document.querySelector('#quote-author');
 const tweetQuoteBtn = document.querySelector('#tweet-btn');
 const showNewQuoteBtn = document.querySelector('#new-quote-btn');
 
+/* Store the list of quotes from API */
 let quotesList = [];
+
+/* Store the number of failed API hits */
+let failedRetries = 0;
 
 /* Function to generate a random number upto n */
 function generateRandomNumber(n) {
@@ -33,6 +37,7 @@ function tweetTheQuote() {
   window.open(tweetUrl, '_blank');
 }
 
+/* Function to get another quote */
 async function getNewQuote() {
   const randomNumber = generateRandomNumber(quotesList.length);
   const quote = quotesList[randomNumber];
@@ -49,15 +54,28 @@ async function getQoutes() {
     quotesList = await response.json();
     await getNewQuote();
     shouldShowLoadingSpinner(false);
+
+    /* Simulate the failure of the API call */
+    // throw Error('Failed to fetch qoutes');
   } catch (error) {
     console.error('Error Fetching quotes', error);
+    failedRetries++;
+    if (failedRetries <= 3) {
+      await getQoutes();
+    } else {
+      alert(
+        'Failed to fetch qoutes. SOmething seems wronmg with the API, try refreshing the page'
+      );
+    }
   }
 }
 
+/* Initializer for the application */
 function initilize() {
   /* Event Listeners */
   tweetQuoteBtn.addEventListener('click', tweetTheQuote);
   showNewQuoteBtn.addEventListener('click', getNewQuote);
+  failedRetries = 0;
   getQoutes();
 }
 
