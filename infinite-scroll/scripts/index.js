@@ -1,5 +1,6 @@
 // DOM Elements
 const imgContainer = document.querySelector('.img-container');
+const loader = document.querySelector('#loader-wrapper');
 
 // API key for Unsplash API
 const API_KEY = '';
@@ -18,13 +19,22 @@ let totalImagesLoaded = 0;
 // Boolean flag to enable fetching more images on scroll if all images are loaded successfully
 let readyToLoadMoreImages = false;
 
+// Helper function to set attributes
+function setAttributes(element, attributes) {
+  for (const attr in attributes) {
+    element.setAttribute(attr, attributes[attr]);
+  }
+}
+
 // Function to track if all images have loaded
 async function imageLoaded() {
   totalImagesLoaded++;
 
   if (totalImagesLoaded >= imagesArray.length) {
     readyToLoadMoreImages = true;
-
+    if (!loader.hidden) {
+      loader.hidden = true;
+    }
     // reset count back to 0;
     totalImagesLoaded = 0;
   }
@@ -36,14 +46,20 @@ async function displayImages() {
   for (const image of imagesArray) {
     // create the anchor element
     const item = document.createElement('a');
-    item.setAttribute('target', '_blank');
-    item.setAttribute('href', image.links.html);
+    // set attributes on a tag wrapping the image
+    setAttributes(item, {
+      target: '_blank',
+      href: 'image.links.html',
+    });
 
     // create the image element
     const img = document.createElement('img');
-    img.setAttribute('src', image.urls.regular);
-    img.setAttribute('title', image.alt_description || '');
-    img.setAttribute('alt', image.alt_description || '');
+    // Set attributes for images
+    setAttributes(img, {
+      src: image.urls.regular,
+      title: image.alt_description || '',
+      alt: image.alt_description || '',
+    });
 
     // add image inside the anchor element
     item.appendChild(img);
