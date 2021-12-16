@@ -28,4 +28,10 @@ button {
   font-size: 2rem;
   outline: 0;
   border: 0;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
