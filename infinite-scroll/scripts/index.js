@@ -3,7 +3,7 @@ const imgContainer = document.querySelector('.img-container');
 const loader = document.querySelector('#loader-wrapper');
 
 // API key for Unsplash API
-const API_KEY = '';
+const API_KEY = 'YOUR_API_KEY';
 
 // Total Images to be loaded at once
 const COUNT = 10;
@@ -74,6 +74,8 @@ async function displayImages() {
   imgContainer.appendChild(documentFragment);
 }
 
+let failedRetries = 0;
+
 // Function to get images from Unsplash API
 async function getImages() {
   try {
@@ -81,7 +83,19 @@ async function getImages() {
     imagesArray = await response.json();
     await displayImages();
   } catch (err) {
-    console.error('Error fetching unsplash API', err);
+    failedRetries++;
+
+    if (failedRetries <= 2) {
+      getImages();
+    } else {
+      if (!loader.hidden) {
+        loader.hidden = true;
+      }
+      failedRetries = 0;
+      alert(
+        'Something is wrong with the API. Please try again later/ refresh the page'
+      );
+    }
   }
 }
 
