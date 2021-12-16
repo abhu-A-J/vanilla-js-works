@@ -5,13 +5,30 @@ const imgContainer = document.querySelector('.img-container');
 const API_KEY = '';
 
 // Total Images to be loaded at once
-const COUNT = 30;
+const COUNT = 10;
 
 // Unsplash API URL
 const UNSPLASH_API_URL = `https://api.unsplash.com/photos/random?count=${COUNT}&client_id=${API_KEY}`;
 
 // Store the images
 let imagesArray = [];
+// Count to total images loaded
+let totalImagesLoaded = 0;
+
+// Boolean flag to enable fetching more images on scroll if all images are loaded successfully
+let readyToLoadMoreImages = false;
+
+// Function to track if all images have loaded
+async function imageLoaded() {
+  totalImagesLoaded++;
+
+  if (totalImagesLoaded >= imagesArray.length) {
+    readyToLoadMoreImages = true;
+
+    // reset count back to 0;
+    totalImagesLoaded = 0;
+  }
+}
 
 // Function to display images on the page
 async function displayImages() {
@@ -30,6 +47,10 @@ async function displayImages() {
 
     // add image inside the anchor element
     item.appendChild(img);
+
+    // Add event listener for load on image
+    img.addEventListener('load', imageLoaded);
+
     // all all images to fragment while in loop
     imgContainer.appendChild(item);
   }
@@ -47,5 +68,15 @@ async function getImages() {
     console.error('Error fetching unsplash API', err);
   }
 }
+
+window.addEventListener('scroll', (e) => {
+  if (
+    window.innerHeight + window.scrollY >= document.body.offsetHeight - 1000 &&
+    readyToLoadMoreImages
+  ) {
+    readyToLoadMoreImages = false;
+    getImages();
+  }
+});
 
 getImages();
