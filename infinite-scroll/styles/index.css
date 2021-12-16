@@ -1,9 +1,42 @@
 @import url('https://fonts.googleapis.com/css2?family=Corinthia:wght@700&display=swap');
 
+:root {
+  --background-color: whitesmoke;
+  --text-color: #333;
+}
+
 body {
   font-family: 'Corinthia', cursive;
+  background-color: var(--background-color);
 }
 
 h1 {
-  color: salmon;
+  color: var(--text-color);
+  text-align: center;
+  font-size: 3.5rem;
+  letter-spacing: 3px;
+  font-weight: 700;
+  margin-top: 2rem;
+}
+
+.img-container {
+  width: 800px;
+  margin: 0 auto;
+  margin-bottom: 10rem;
+}
+
+.img-container img {
+  margin: 2rem 0;
+  width: 100%;
+}
+
+/* Media Queries */
+@media only screen and (max-width: 800px) {
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  .img-container {
+    width: 80%;
+  }
 }
