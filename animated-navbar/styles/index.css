@@ -17,7 +17,45 @@ body {
   background-position: center center;
 }
 
-/* Overlay styles */
+/* Menu bar styles */
+.menu-bar {
+  display: inline-block;
+  cursor: pointer;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 20;
+}
+
+.bar1,
+.bar2,
+.bar3 {
+  width: 35px;
+  height: 5px;
+  background-color: var(--primaryColor);
+  margin: 6px 0;
+  transition: 0.4s;
+}
+
+/* Rotate first bar */
+.change .bar1 {
+  -webkit-transform: rotate(-45deg) translate(-9px, 6px);
+  transform: rotate(-45deg) translate(-9px, 6px);
+}
+
+/* Fade out the second bar */
+.change .bar2 {
+  opacity: 0;
+}
+
+/* Rotate last bar */
+.change .bar3 {
+  -webkit-transform: rotate(45deg) translate(-8px, -8px);
+  transform: rotate(45deg) translate(-8px, -8px);
+}
+
+/* ===================================== */
+/* Navbar Overlay styles */
 .overlay {
   background: rgba(0, 0, 0, 0.5);
   position: fixed;
@@ -36,12 +74,8 @@ body {
   flex-direction: column;
   justify-content: space-between;
   height: 100vh;
-  z-index: 20;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  width: 100vw;
+  overflow: hidden;
 }
 
 /* Navbar items */

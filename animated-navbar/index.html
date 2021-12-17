@@ -15,33 +15,40 @@
   </head>
 
   <body>
-    <!-- Overlay for the entire app -->
-    <div id="id" class="overlay"></div>
+    <!-- Menu bar for navigation * -->
+    <div class="menu-bar" id="menu-bar">
+      <div class="bar1"></div>
+      <div class="bar2"></div>
+      <div class="bar3"></div>
+    </div>
 
-    <!-- Navbar  -->
-    <nav class="navbar">
-      <ul>
-        <li class="navbar-items">
-          <a class="navbar-link" href="#">Home</a>
-        </li>
+    <!-- Overlay for the navbar over app -->
+    <div class="navbar-overlay" id="navbar-overlay">
+      <!-- Navbar  -->
+      <nav class="navbar">
+        <ul>
+          <li class="navbar-items">
+            <a class="navbar-link" href="#">Home</a>
+          </li>
 
-        <li class="navbar-items">
-          <a class="navbar-link" href="#">About</a>
-        </li>
+          <li class="navbar-items">
+            <a class="navbar-link" href="#">About</a>
+          </li>
 
-        <li class="navbar-items">
-          <a class="navbar-link" href="#">Skills</a>
-        </li>
+          <li class="navbar-items">
+            <a class="navbar-link" href="#">Skills</a>
+          </li>
 
-        <li class="navbar-items">
-          <a class="navbar-link" href="#">Projects</a>
-        </li>
+          <li class="navbar-items">
+            <a class="navbar-link" href="#">Projects</a>
+          </li>
 
-        <li class="navbar-items">
-          <a class="navbar-link" href="#">Contact</a>
-        </li>
-      </ul>
-    </nav>
+          <li class="navbar-items">
+            <a class="navbar-link" href="#">Contact</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
 
     <!-- To support native ES Modules  incase needed -->
     <script type="module" src="scripts/index.js"></script>
