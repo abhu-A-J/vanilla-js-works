@@ -129,3 +129,23 @@ body {
   filter: brightness(110%);
   transform: scale(1.05);
 }
+
+/* SlideIn Animation Definition */
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* SlideOut Animation Definition */
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
