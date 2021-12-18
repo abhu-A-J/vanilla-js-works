@@ -11,12 +11,12 @@ const songs = [
     artist: 'Jacinto Design',
   },
   {
-    name: '2',
+    name: '3',
     displayName: 'Goodnight, Disco Queen',
     artist: 'Jacinto Design',
   },
   {
-    name: '2',
+    name: '4',
     displayName: 'Front Row (Remix)',
     artist: 'Metric/Jacinto Design',
   },
@@ -41,10 +41,23 @@ const nextBtn = document.querySelector('#next-btn');
 
 /* Track if sonf is playing or not */
 let isPlaying = false;
+let currentSongIndex = generateRandomNumberUpto(songs.length - 1);
 
 /* Helper function to generate a random number upto n */
 function generateRandomNumberUpto(n) {
   return Math.floor(Math.random() * n);
+}
+
+/* Helper function to load a song with index */
+async function loadSongWithIndex(index) {
+  // Get the song details
+  const songDetails = songs[index];
+
+  // Set the song details
+  music.setAttribute('src', `/audio/${songDetails.name}.mp3`);
+  musicImage.setAttribute('src', `/images/${songDetails.name}.jpg`);
+  musicTitle.textContent = songDetails.displayName;
+  musicAuthor.textContent = songDetails.artist;
 }
 
 /* Helper function to play song */
@@ -62,10 +75,30 @@ async function pauseSong() {
 }
 
 /* Helper function to play next song */
-async function nextSong() {}
+async function nextSong() {
+  currentSongIndex++;
+  await pauseSong();
+
+  if (currentSongIndex >= songs.length) {
+    currentSongIndex = 0;
+  }
+
+  await loadSongWithIndex(currentSongIndex);
+  await playSong();
+}
 
 /* Helper function to play previous song */
-async function prevSong() {}
+async function prevSong() {
+  currentSongIndex--;
+  await pauseSong();
+
+  if (currentSongIndex < 0) {
+    currentSongIndex = songs.length - 1;
+  }
+
+  await loadSongWithIndex(currentSongIndex);
+  await playSong();
+}
 
 // On load
 playPauseBtn.addEventListener('click', () => {
@@ -75,3 +108,7 @@ playPauseBtn.addEventListener('click', () => {
     playSong();
   }
 });
+
+loadSongWithIndex(currentSongIndex);
+nextBtn.addEventListener('click', nextSong);
+prevBtn.addEventListener('click', prevSong);
