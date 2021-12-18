@@ -64,6 +64,7 @@ async function loadSongWithIndex(index) {
 async function playSong() {
   isPlaying = true;
   playPauseBtn.setAttribute('src', './images/pauseBtn.svg');
+  playPauseBtn.setAttribute('title', 'Pause track');
   music.play();
 }
 
@@ -71,6 +72,7 @@ async function playSong() {
 async function pauseSong() {
   isPlaying = false;
   playPauseBtn.setAttribute('src', './images/playBtn.svg');
+  playPauseBtn.setAttribute('title', 'Play track');
   music.pause();
 }
 
