@@ -131,6 +131,9 @@ async function updateProgressBar(e) {
   if (isPlaying) {
     currentTime.textContent = await formatTimeInSeconds(music.currentTime);
     durationTime.textContent = await formatTimeInSeconds(music.duration);
+
+    const progressPercent = (music.currentTime / music.duration) * 100;
+    progressBar.style.width = `${progressPercent}%`;
   }
 }
 

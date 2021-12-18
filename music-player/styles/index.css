@@ -76,8 +76,9 @@ h2 {
   height: 4px;
   border-radius: 10px;
   background: var(--secondary-color);
-  width: 50%;
+  transition: width 0.1s linear;
   cursor: pointer;
+  width: 0;
 }
 
 /* PLayer Duration */
