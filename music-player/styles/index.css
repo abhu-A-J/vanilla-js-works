@@ -3,10 +3,123 @@
 :root {
   --background: whitesmoke;
   --text-color: #232946;
+  --primary-color: #b8c1ec;
+  --secondary-color: #eebbc3;
 }
 
 body {
   height: 100vh;
   font-family: 'Comfortaa', cursive;
+  background: rgb(228, 225, 225);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Player COntainer */
+.player-container {
   background: var(--background);
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: 0px 10px 10px 5px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.img-container {
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 50%;
+  position: relative;
+  top: -50px;
+  box-shadow: 0px 10px 10px 5px rgba(0, 0, 0, 0.2);
+}
+
+.img-container img {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+
+/* Music Details */
+.music-details-container {
+  text-align: center;
+}
+
+h1 {
+  font-size: 3.2rem;
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+
+h2 {
+  font-size: 1.8rem;
+  font-weight: 300;
+  letter-spacing: 1px;
+}
+
+/* Player progress bar */
+.player-progress-container {
+  width: 100%;
+  height: 4px;
+  background: var(--primary-color);
+  border-radius: 10px;
+  margin: 1rem 0rem;
+  overflow: hidden;
+}
+
+.progress {
+  height: 4px;
+  border-radius: 10px;
+  background: var(--secondary-color);
+  width: 50%;
+}
+
+/* PLayer Duration */
+.player-duration-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.player-duration-container {
+  font-weight: bold;
+  color: var(--text-color);
+  font-size: 1.2rem;
+}
+
+/* Player controls */
+.player-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-top: 2rem;
+}
+
+/* Reset all btn */
+button {
+  background: none;
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+}
+
+/* Media query */
+@media only screen and (max-width: 600px) {
+  .player-container {
+    width: 90%;
+  }
+
+  h1 {
+    font-size: 2.8rem;
+  }
+
+  h2 {
+    font-size: 1.6rem;
+  }
 }
