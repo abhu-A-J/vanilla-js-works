@@ -16,19 +16,19 @@
 
   <body>
     <!-- Native HTML Player -->
-    <audio src="./audio/1.mp3" id="music" hidden></audio>
+    <audio id="music" hidden></audio>
 
     <!-- Overall player container -->
     <div class="player-container">
       <!-- Image container for album cover -->
       <div class="img-container">
-        <img src="./images/1.jpg" alt="Album images" id="music-image" />
+        <img alt="Album images" id="music-image" />
       </div>
 
       <!-- Meta container for duration, current time and progress -->
       <div class="music-details-container">
-        <h1 id="music-title">Electric Chill Machine</h1>
-        <h2 id="music-author">Jacinto Design</h2>
+        <h1 id="music-title"></h1>
+        <h2 id="music-author"></h2>
       </div>
 
       <div class="player-progress-container" id="progress-bar-container">
@@ -36,8 +36,8 @@
       </div>
 
       <div class="player-duration-container">
-        <span id="current-time">2:30</span>
-        <span id="dusration-time">5:30</span>
+        <span id="current-time"></span>
+        <span id="duration-time"></span>
       </div>
 
       <!-- Container for player controls -->

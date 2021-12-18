@@ -34,6 +34,10 @@ const musicAuthor = document.querySelector('#music-author');
 const progressBarContainer = document.querySelector('#progress-bar-container');
 const progressBar = document.querySelector('#progress-bar');
 
+/* Music COntrols Timing */
+const currentTime = document.querySelector('#current-time');
+const durationTime = document.querySelector('#duration-time');
+
 /* Music Controls */
 const prevBtn = document.querySelector('#prev-btn');
 const playPauseBtn = document.querySelector('#play-pause-btn');
@@ -46,6 +50,13 @@ let currentSongIndex = generateRandomNumberUpto(songs.length - 1);
 /* Helper function to generate a random number upto n */
 function generateRandomNumberUpto(n) {
   return Math.floor(Math.random() * n);
+}
+
+/* Helper funmction to format seconds to minutes:seconds */
+async function formatTimeInSeconds(timeInSeconds) {
+  const minutes = Math.floor(timeInSeconds / 60);
+  const seconds = Math.floor(timeInSeconds % 60);
+  return `${minutes}:${seconds <= 9 ? `0${seconds}` : seconds}`;
 }
 
 /* Helper function to load a song with index */
@@ -115,6 +126,14 @@ async function seekSong(e) {
     (clickedByXPixel / totalProgressContainerWidth) * music.duration;
 }
 
+/* Helper function to update the progress bar */
+async function updateProgressBar(e) {
+  if (isPlaying) {
+    currentTime.textContent = await formatTimeInSeconds(music.currentTime);
+    durationTime.textContent = await formatTimeInSeconds(music.duration);
+  }
+}
+
 // On load load a random song from playlist
 loadSongWithIndex(currentSongIndex);
 
@@ -133,3 +152,5 @@ prevBtn.addEventListener('click', prevSong);
 music.addEventListener('ended', nextSong);
 
 progressBarContainer.addEventListener('click', seekSong);
+
+music.addEventListener('timeupdate', updateProgressBar);
