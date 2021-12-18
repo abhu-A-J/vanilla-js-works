@@ -69,6 +69,7 @@ h2 {
   border-radius: 10px;
   margin: 1rem 0rem;
   overflow: hidden;
+  cursor: pointer;
 }
 
 .progress {
@@ -76,6 +77,8 @@ h2 {
   border-radius: 10px;
   background: var(--secondary-color);
   width: 50%;
+  cursor: pointer;
+
 }
 
 /* PLayer Duration */

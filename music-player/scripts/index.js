@@ -102,15 +102,34 @@ async function prevSong() {
   await playSong();
 }
 
-// On load
-playPauseBtn.addEventListener('click', () => {
-  if (isPlaying) {
-    pauseSong();
-  } else {
-    playSong();
-  }
-});
+/* Helper function to seek the song */
+async function seekSong(e) {
+  // total wdth of progress-bar-container
+  const totalProgressContainerWidth = e.target.offsetWidth;
 
+  // get in pixels the position of the mouse
+  const { offsetX: clickedByXPixel } = e;
+
+  // set the new audio time on audio
+  music.currentTime =
+    (clickedByXPixel / totalProgressContainerWidth) * music.duration;
+}
+
+// On load load a random song from playlist
 loadSongWithIndex(currentSongIndex);
+
+// listen to click on play/pause button
+playPauseBtn.addEventListener('click', () =>
+  !isPlaying ? playSong() : pauseSong()
+);
+
+// listen to click on next button
 nextBtn.addEventListener('click', nextSong);
+
+// listen to click on previous button
 prevBtn.addEventListener('click', prevSong);
+
+// listen to song end and play next song directly
+music.addEventListener('ended', nextSong);
+
+progressBarContainer.addEventListener('click', seekSong);
