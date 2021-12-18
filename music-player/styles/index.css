@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500&display=swap');
+
+:root {
+  --background: whitesmoke;
+  --text-color: #232946;
+}
+
+body {
+  height: 100vh;
+  font-family: 'Comfortaa', cursive;
+  background: var(--background);
+}
