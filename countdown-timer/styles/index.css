@@ -52,6 +52,13 @@ h1 {
   margin-bottom: 1.5rem;
 }
 
+h2 {
+  font-size: 3.5rem;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-weight: 300;
+}
+
 /* Input Form for countdown timer */
 
 .input-container {
@@ -93,4 +100,27 @@ input {
 .countdown-time span {
   font-size: 5rem;
   font-weight: 400;
+}
+
+h1.complete-animation {
+  animation: completeAnimation 2s linear reverse infinite;
+}
+
+@keyframes completeAnimation {
+  0% {
+    color: rgb(216, 25, 25);
+  }
+  25% {
+    color: rgb(233, 236, 30);
+  }
+  50% {
+    color: rgb(107, 231, 35);
+    transform: scale(1.05);
+  }
+  75% {
+    color: rgb(40, 143, 228);
+  }
+  100% {
+    color: rgb(226, 23, 148);
+  }
 }
