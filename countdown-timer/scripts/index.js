@@ -5,7 +5,8 @@ const countdownDateInputEl = document.querySelector('#countdown-date');
 
 /* Countdown timer container elements */
 const countdownContainer = document.querySelector('#countdown-container');
-const countdownTimeElements = document.querySelectorAll('.countdown-time');
+const countdownTimeTextElements = document.querySelectorAll('.countdown-text');
+const resetButton = document.querySelector('#reset-countdown');
 
 /* Variables to store data */
 let countdownTitle = '';
@@ -20,6 +21,11 @@ const DAY = HOUR * 24;
 /* Helper Function to hide container elements */
 async function shouldHideContainerElem(containerEl, state) {
   containerEl.hidden = state;
+}
+
+/* Helper function to format time */
+function formatTime(time) {
+  return time < 10 ? `0${time}` : time;
 }
 
 /* Update the countdown timer */
@@ -41,7 +47,27 @@ async function updateCountdown() {
   const minutes = Math.floor((timeDifference % HOUR) / MINUTE);
   const seconds = Math.floor((timeDifference % MINUTE) / SECOND);
 
-  console.log({ days, hours, minutes, seconds });
+  const [daysEl, hoursEl, minutesEl, secondsEl] = countdownTimeTextElements;
+
+  daysEl.textContent = `${formatTime(days)}`;
+  hoursEl.textContent = `${formatTime(hours)}`;
+  minutesEl.textContent = `${formatTime(minutes)}`;
+  secondsEl.textContent = `${formatTime(seconds)}`;
+}
+
+// Reset the countdown timer
+async function resetCountdown() {
+  // Show the input form container and hide others
+  shouldHideContainerElem(inputFormContainer, false);
+  shouldHideContainerElem(countdownContainer, true);
+
+  // reset form fields
+  countdownTitleInputEl.value = '';
+  countdownDateInputEl.value = '';
+
+  // reset global variables
+  countdownDate = '';
+  countdownTitle = '';
 }
 
 // Start the countdown timer
@@ -61,6 +87,7 @@ async function startCountdown(e) {
 
 // Run the code on load
 inputFormContainer.addEventListener('submit', startCountdown);
+resetButton.addEventListener('click', resetCountdown);
 // Set the date input to have a min limiot for today's date ( ISO Format)
 const today = new Date().toISOString();
 countdownDateInputEl.setAttribute('min', today.split('T')[0]);
