@@ -8,6 +8,11 @@ const countdownContainer = document.querySelector('#countdown-container');
 const countdownTimeTextElements = document.querySelectorAll('.countdown-text');
 const resetButton = document.querySelector('#reset-countdown');
 
+/* Completed Container */
+const completedContainer = document.querySelector('#completed-container');
+const completedMessage = document.querySelector('#completed-message');
+const startNewCountdown = document.querySelector('#start-new-countdown');
+
 /* Variables to store data */
 let countdownTitle = '';
 let countdownDate = '';
@@ -33,26 +38,41 @@ async function updateCountdown() {
   // Hide the input form
   shouldHideContainerElem(inputFormContainer, true);
 
-  // Set the tile of the countdown timer
-  countdownContainer.querySelector('h1').textContent = countdownTitle;
-  shouldHideContainerElem(countdownContainer, false);
-
   const targetTime = new Date(countdownDate).getTime();
-  const currenTime = new Date().getTime();
+  const currentTime = new Date().getTime();
 
-  const timeDifference = targetTime - currenTime; // in ms
+  const timeDifference = targetTime - currentTime; // in ms
 
-  const days = Math.floor(timeDifference / DAY);
-  const hours = Math.floor((timeDifference % DAY) / HOUR);
-  const minutes = Math.floor((timeDifference % HOUR) / MINUTE);
-  const seconds = Math.floor((timeDifference % MINUTE) / SECOND);
+  // timer is over
+  if (timeDifference <= 0) {
+    // show the completed container and hide others
+    shouldHideContainerElem(completedContainer, false);
+    shouldHideContainerElem(countdownContainer, true);
+    shouldHideContainerElem(inputFormContainer, true);
 
-  const [daysEl, hoursEl, minutesEl, secondsEl] = countdownTimeTextElements;
+    // add the custom message and title for countdown
+    const [date] = new Date(countdownDate).toISOString().split('T');
+    // add the title
+    completedContainer.querySelector('h1').textContent = countdownTitle;
+    // add the message
+    completedMessage.textContent = `Timer completed on ${date}`;
+  } else {
+    // Set the tile of the countdown timer
+    countdownContainer.querySelector('h1').textContent = countdownTitle;
+    shouldHideContainerElem(countdownContainer, false);
 
-  daysEl.textContent = `${formatTime(days)}`;
-  hoursEl.textContent = `${formatTime(hours)}`;
-  minutesEl.textContent = `${formatTime(minutes)}`;
-  secondsEl.textContent = `${formatTime(seconds)}`;
+    const days = Math.floor(timeDifference / DAY);
+    const hours = Math.floor((timeDifference % DAY) / HOUR);
+    const minutes = Math.floor((timeDifference % HOUR) / MINUTE);
+    const seconds = Math.floor((timeDifference % MINUTE) / SECOND);
+
+    const [daysEl, hoursEl, minutesEl, secondsEl] = countdownTimeTextElements;
+
+    daysEl.textContent = `${formatTime(days)}`;
+    hoursEl.textContent = `${formatTime(hours)}`;
+    minutesEl.textContent = `${formatTime(minutes)}`;
+    secondsEl.textContent = `${formatTime(seconds)}`;
+  }
 }
 
 // Reset the countdown timer
@@ -60,6 +80,7 @@ async function resetCountdown() {
   // Show the input form container and hide others
   shouldHideContainerElem(inputFormContainer, false);
   shouldHideContainerElem(countdownContainer, true);
+  shouldHideContainerElem(completedContainer, true);
 
   // reset form fields
   countdownTitleInputEl.value = '';
@@ -88,6 +109,8 @@ async function startCountdown(e) {
 // Run the code on load
 inputFormContainer.addEventListener('submit', startCountdown);
 resetButton.addEventListener('click', resetCountdown);
+startNewCountdown.addEventListener('click', resetCountdown);
+
 // Set the date input to have a min limiot for today's date ( ISO Format)
 const today = new Date().toISOString();
 countdownDateInputEl.setAttribute('min', today.split('T')[0]);
