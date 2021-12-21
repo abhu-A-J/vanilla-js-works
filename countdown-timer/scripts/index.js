@@ -16,6 +16,7 @@ const startNewCountdown = document.querySelector('#start-new-countdown');
 /* Variables to store data */
 let countdownTitle = '';
 let countdownDate = '';
+let timerId = '';
 
 /* COnversion factors from ms to days, hours, minutes, seconds */
 const SECOND = 1000;
@@ -35,31 +36,39 @@ function formatTime(time) {
 
 /* Update the countdown timer */
 async function updateCountdown() {
-  // Hide the input form
-  shouldHideContainerElem(inputFormContainer, true);
+  timerId = setInterval(() => {
+    // Hide the input form
 
-  const targetTime = new Date(countdownDate).getTime();
-  const currentTime = new Date().getTime();
+    const targetTime = new Date(countdownDate).getTime();
+    const currentTime = new Date().getTime();
 
-  const timeDifference = targetTime - currentTime; // in ms
+    const timeDifference = targetTime - currentTime; // in ms
 
-  // timer is over
-  if (timeDifference <= 0) {
-    // show the completed container and hide others
-    shouldHideContainerElem(completedContainer, false);
-    shouldHideContainerElem(countdownContainer, true);
-    shouldHideContainerElem(inputFormContainer, true);
+    console.log(timeDifference);
+    // timer is over
+    if (timeDifference <= 0) {
+      // show the completed container and hide others
+      shouldHideContainerElem(completedContainer, false);
+      shouldHideContainerElem(countdownContainer, true);
+      shouldHideContainerElem(inputFormContainer, true);
 
-    // add the custom message and title for countdown
-    const [date] = new Date(countdownDate).toISOString().split('T');
-    // add the title
-    completedContainer.querySelector('h1').textContent = countdownTitle;
-    // add the message
-    completedMessage.textContent = `Timer completed on ${date}`;
-  } else {
+      // add the custom message and title for countdown
+      const [date] = new Date(countdownDate).toISOString().split('T');
+      // add the title
+      completedContainer.querySelector('h1').textContent = countdownTitle;
+      // add the message
+      completedMessage.textContent = `Timer completed on ${date}`;
+
+      // clear the timer
+      clearInterval(timerId);
+      return;
+    }
+
     // Set the tile of the countdown timer
     countdownContainer.querySelector('h1').textContent = countdownTitle;
     shouldHideContainerElem(countdownContainer, false);
+    shouldHideContainerElem(completedContainer, true);
+    shouldHideContainerElem(inputFormContainer, true);
 
     const days = Math.floor(timeDifference / DAY);
     const hours = Math.floor((timeDifference % DAY) / HOUR);
@@ -72,7 +81,7 @@ async function updateCountdown() {
     hoursEl.textContent = `${formatTime(hours)}`;
     minutesEl.textContent = `${formatTime(minutes)}`;
     secondsEl.textContent = `${formatTime(seconds)}`;
-  }
+  }, 1000);
 }
 
 // Reset the countdown timer
@@ -89,6 +98,8 @@ async function resetCountdown() {
   // reset global variables
   countdownDate = '';
   countdownTitle = '';
+
+  clearInterval(timerId);
 }
 
 // Start the countdown timer
