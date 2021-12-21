@@ -25,7 +25,6 @@ body {
 }
 
 .parent-container {
-  min-height: 400px;
   min-width: 600px;
   height: auto;
   border-radius: 10px;
@@ -49,15 +48,11 @@ button {
 
 h1 {
   font-size: 4.2rem;
+  text-align: center;
+  margin-bottom: 1.5rem;
 }
 
 /* Input Form for countdown timer */
-.input-form {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-direction: column;
-}
 
 .input-container {
   display: flex;
@@ -79,4 +74,23 @@ input {
   font-family: inherit;
   border-radius: 5px;
   width: 100%;
+}
+
+/* Countdown Container */
+.countdown-time-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.countdown-time {
+  display: flex;
+  flex-direction: column;
+  font-size: 2rem;
+  font-weight: 300;
+}
+
+.countdown-time span {
+  font-size: 5rem;
+  font-weight: 400;
 }

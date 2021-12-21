@@ -18,7 +18,7 @@
     <!-- Parent container -->
     <div class="parent-container">
       <!-- Input Container -->
-      <form class="input-form">
+      <form class="input-form" hidden>
         <h1>Start a countdown</h1>
 
         <div class="input-container">
@@ -33,6 +33,20 @@
 
         <button type="submit">Submit</button>
       </form>
+
+      <!-- Countdown Container -->
+      <div class="countdown-container">
+        <h1>Custom Title</h1>
+
+        <ul class="countdown-time-wrapper">
+          <li class="countdown-time"><span>2</span>Days</li>
+          <li class="countdown-time"><span>4</span>Hours</li>
+          <li class="countdown-time"><span>54</span>Minutes</li>
+          <li class="countdown-time"><span>7</span>Seconds</li>
+        </ul>
+
+        <button>Reset</button>
+      </div>
     </div>
 
     <!-- To support native ES Modules  incase needed -->
