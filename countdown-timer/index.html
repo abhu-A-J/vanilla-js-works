@@ -18,12 +18,12 @@
     <!-- Parent container -->
     <div class="parent-container">
       <!-- Input Container -->
-      <form class="input-form" hidden>
+      <form class="input-form" id="input-form">
         <h1>Start a countdown</h1>
 
         <div class="input-container">
           <label for="countdown-title">Title:</label>
-          <input type="text" id="countdown-title" />
+          <input type="text" id="countdown-title" placeholder="Enter a custom title"/>
         </div>
 
         <div class="input-container">
@@ -35,7 +35,7 @@
       </form>
 
       <!-- Countdown Container -->
-      <div class="countdown-container" hidden>
+      <div class="countdown-container" hidden id="countdown-container">
         <h1>Custom Title</h1>
 
         <ul class="countdown-time-wrapper">
@@ -45,18 +45,18 @@
           <li class="countdown-time"><span>7</span>Seconds</li>
         </ul>
 
-        <button>Reset</button>
+        <button id="reset-countdown">Reset</button>
       </div>
 
       <!-- Timer Completion Container -->
-      <div class="completed-container">
+      <div class="completed-container" hidden>
         <h1 class="complete-animation">Custom Title</h1>
 
         <div class="completed-message">
           <h2>Completed on 2020-05-19</h2>
         </div>
 
-        <button>New Countdown</button>
+        <button id="start-new-countdown">New Countdown</button>
       </div>
     </div>
 
