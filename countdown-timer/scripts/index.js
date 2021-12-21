@@ -44,7 +44,6 @@ async function updateCountdown() {
 
     const timeDifference = targetTime - currentTime; // in ms
 
-    console.log(timeDifference);
     // timer is over
     if (timeDifference <= 0) {
       // show the completed container and hide others
@@ -100,6 +99,8 @@ async function resetCountdown() {
   countdownTitle = '';
 
   clearInterval(timerId);
+
+  localStorage.removeItem('timer-details');
 }
 
 // Start the countdown timer
@@ -114,6 +115,13 @@ async function startCountdown(e) {
     return;
   }
 
+  // set the timer details on local stoarge
+  const timerDetails = {
+    title: countdownTitle,
+    date: countdownDate,
+  };
+
+  localStorage.setItem('timer-details', JSON.stringify(timerDetails));
   await updateCountdown();
 }
 
@@ -125,3 +133,15 @@ startNewCountdown.addEventListener('click', resetCountdown);
 // Set the date input to have a min limiot for today's date ( ISO Format)
 const today = new Date().toISOString();
 countdownDateInputEl.setAttribute('min', today.split('T')[0]);
+
+const isPreviousTimer = JSON.parse(
+  localStorage.getItem('timer-details') || '{}'
+);
+
+if (isPreviousTimer && isPreviousTimer.title && isPreviousTimer.date) {
+  countdownTitle = isPreviousTimer.title;
+  countdownDate = isPreviousTimer.date;
+  updateCountdown();
+} else {
+  resetCountdown();
+}
