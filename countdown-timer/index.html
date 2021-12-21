@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- CSS Reset -->
+    <link rel="stylesheet" href="./styles/reset.css" />
+
+    <!-- Index Style -->
+    <link rel="stylesheet" href="./styles/index.css" />
+
+    <title>Countdown timer</title>
+  </head>
+
+  <body>
+    <!-- Parent container -->
+    <div class="parent-container">
+      <!-- Input Container -->
+      <form class="input-form">
+        <h1>Start a countdown</h1>
+
+        <div class="input-container">
+          <label for="countdown-title">Title:</label>
+          <input type="text" id="countdown-title" />
+        </div>
+
+        <div class="input-container">
+          <label for="countdown-date">Countdown Date:</label>
+          <input type="date" id="countdown-date" />
+        </div>
+
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+
+    <!-- To support native ES Modules  incase needed -->
+    <script type="module" src="scripts/index.js"></script>
+  </body>
+</html>
