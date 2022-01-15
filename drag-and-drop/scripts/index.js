@@ -1,11 +1,19 @@
+/* Get required DOM Elements */
+const backlogList = document.querySelector('#backlog-list');
+const progressList = document.querySelector('#progress-list');
+const completedList = document.querySelector('#completed-list');
+const onHoldList = document.querySelector('#onhold-list');
+
 /* Store board items */
 let backlogItems = [];
 let inProgressItems = [];
 let completedItems = [];
 let onHoldItems = [];
 
+let isFirstLoad = false;
+
 /* Helper function to update columns items to local storage */
-function updateBoardColumns() {
+function updateBoardColumnsInStorage() {
   localStorage.setItem('backlogItems', JSON.stringify(backlogItems));
   localStorage.setItem('inProgressItems', JSON.stringify(inProgressItems));
   localStorage.setItem('completedItems', JSON.stringify(completedItems));
@@ -13,7 +21,7 @@ function updateBoardColumns() {
 }
 
 /* Helper function to get saved columns from local storage */
-function getSavedBoardColumns() {
+function getSavedBoardColumnsFromStorage() {
   if (localStorage.getItem('backlogItems')) {
     backlogItems = JSON.parse(localStorage.getItem('backlogItems') || '[]');
     inProgressItems = JSON.parse(
@@ -38,6 +46,53 @@ function getSavedBoardColumns() {
   }
 }
 
-/* On load */
-getSavedBoardColumns();
-updateBoardColumns();
+/* Helper function to create a drag item */
+function createDragListItem(properties) {
+  const { textContent } = properties;
+
+  // create an li with class 'drag-item'
+  const dragListItem = document.createElement('li');
+  dragListItem.classList.add('drag-item');
+
+  // add the properties given
+  dragListItem.textContent = textContent;
+
+  return dragListItem;
+}
+
+/* Helper function to append list items to parent list*/
+function appendListItemsToParent(parentEl, listItem) {
+  // create fragment to append all childs
+  const listItemsFragment = document.createDocumentFragment();
+  listItem.forEach((item) => {
+    const newItem = createDragListItem({ textContent: item });
+    listItemsFragment.appendChild(newItem);
+  });
+  // append the fragment on parent
+  parentEl.appendChild(listItemsFragment);
+}
+
+/* Helper function to update the board */
+function updateBoard() {
+  // get saved columns from storage
+  getSavedBoardColumnsFromStorage();
+
+  if (!isFirstLoad) {
+    updateBoardColumnsInStorage();
+    isFirstLoad = true;
+  }
+
+  // update DOM for backlog board
+  appendListItemsToParent(backlogList, backlogItems);
+
+  // update DOM for progress board
+  appendListItemsToParent(progressList, inProgressItems);
+
+  // update DOM for the completed board
+  appendListItemsToParent(completedList, completedItems);
+
+  // update DOM for the on hold board
+  appendListItemsToParent(onHoldList, onHoldItems);
+}
+
+updateBoard();
