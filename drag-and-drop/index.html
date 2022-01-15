@@ -15,7 +15,102 @@
   </head>
 
   <body>
-    <h1>Hello World</h1>
+    <h1>Kanban Board</h1>
+
+    <div class="drag-container">
+      <ul class="drag-list">
+        <!-- Backlog Column -->
+        <li class="drag-column drag-column-backlog">
+          <h2 class="header header-backlog">Backlog</h2>
+          <!-- Backlog Content -->
+          <div class="board-content-wrapper custom-scroll">
+            <ul class="drag-item-list">
+              <li class="drag-item">Testing</li>
+              <li class="drag-item">Testing</li>
+              <li class="drag-item">Testing</li>
+              <li class="drag-item">Testing</li>
+            </ul>
+          </div>
+
+          <!-- Add btn group -->
+          <div class="add-btn-group">
+            <button class="add-item">Add Item</button>
+            <button class="save-item">Save Item</button>
+          </div>
+
+          <!-- Add content container -->
+          <div class="add-container">New content goes here</div>
+        </li>
+
+        <!-- Progress Column -->
+        <li class="drag-column drag-column-progress">
+          <h2 class="header header-progress">Progress</h2>
+          <!-- Backlog Content -->
+          <div class="board-content-wrapper custom-scroll">
+            <ul class="drag-item-list">
+              <li class="drag-item">Testing</li>
+              <li class="drag-item">Testing</li>
+              <li class="drag-item">Testing</li>
+              <li class="drag-item">Testing</li>
+            </ul>
+          </div>
+
+          <!-- Add btn group -->
+          <div class="add-btn-group">
+            <button class="add-item">Add Item</button>
+            <button class="save-item">Save Item</button>
+          </div>
+
+          <!-- Add content container -->
+          <div class="add-container">New content goes here</div>
+        </li>
+
+        <!-- Complete Column -->
+        <li class="drag-column drag-column-complete">
+          <h2 class="header header-complete">Complete</h2>
+          <!-- Backlog Content -->
+          <div class="board-content-wrapper custom-scroll">
+            <ul class="drag-item-list">
+              <li class="drag-item">Testing</li>
+              <li class="drag-item">Testing</li>
+              <li class="drag-item">Testing</li>
+              <li class="drag-item">Testing</li>
+            </ul>
+          </div>
+
+          <!-- Add btn group -->
+          <div class="add-btn-group">
+            <button class="add-item">Add Item</button>
+            <button class="save-item">Save Item</button>
+          </div>
+
+          <!-- Add content container -->
+          <div class="add-container">New content goes here</div>
+        </li>
+
+        <!-- Onhold Column -->
+        <li class="drag-column drag-column-hold">
+          <h2 class="header header-hold">On Hold</h2>
+          <!-- Backlog Content -->
+          <div class="board-content-wrapper custom-scroll">
+            <ul class="drag-item-list">
+              <li class="drag-item">Testing</li>
+              <li class="drag-item">Testing</li>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Add btn group -->
+          <div class="add-btn-group">
+            <button class="add-item">Add Item</button>
+            <button class="save-item">Save Item</button>
+          </div>
+
+          <!-- Add content container -->
+          <div class="add-container">New content goes here</div>
+        </li>
+      </ul>
+    </div>
 
     <!-- To support native ES Modules  incase needed -->
     <script type="module" src="scripts/index.js"></script>

@@ -1,3 +1,176 @@
+@import url('https://fonts.googleapis.com/css?family=Quicksand&display=swap');
+
+:root {
+  --column-1: #a2622d;
+  --column-2: #1b6161;
+  --column-3: #248224;
+  --column-4: #a22d22;
+}
+
+body {
+  font-family: 'Quicksand', sans-serif;
+  background-color: whitesmoke;
+  color: #333;
+  font-size: 1.6rem;
+}
+
+/* Custom scroll bar */
+
+.custom-scroll {
+  max-height: 28rem;
+  overflow-y: auto;
+  min-height: 28rem;
+}
+
+/* width */
+.custom-scroll::-webkit-scrollbar {
+  width: 6px;
+  margin-left: 5px;
+}
+
+/* Track */
+.custom-scroll::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px #f7f7f7;
+  border-radius: 10px;
+}
+
+/* Handle */
+.custom-scroll::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+.custom-scroll::-webkit-scrollbar-thumb:hover {
+  background: #333;
+}
+
 h1 {
-  color: salmon;
+  font-size: 3.6rem;
+  text-align: center;
+  margin: 3rem auto;
+}
+
+/* Main drag container */
+.drag-container {
+  margin: 20px 40px;
+}
+
+/* Main drag list */
+.drag-list {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+/* All columns */
+.drag-column {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #000;
+  max-width: 20%;
+}
+
+/* STyles for different drag columns */
+.drag-column-backlog {
+  border: 3px solid var(--column-1);
+}
+
+.drag-column-progress {
+  border: 3px solid var(--column-2);
+}
+
+.drag-column-complete {
+  border: 3px solid var(--column-3);
+}
+
+.drag-column-hold {
+  border: 3px solid var(--column-4);
+}
+
+.header {
+  font-size: 2rem;
+  padding: 2rem;
+  text-align: center;
+  border-radius: 10px;
+  color: #fff;
+}
+
+/* Styles for different board headers */
+.header-backlog {
+  background-color: var(--column-1);
+}
+
+.header-progress {
+  background-color: var(--column-2);
+}
+
+.header-complete {
+  background-color: var(--column-3);
+}
+
+.header-hold {
+  background-color: var(--column-4);
+}
+
+/* Board content wrapper */
+.board-content-wrapper {
+  margin: 20px auto;
+  padding: 10px 0;
+}
+
+/* Drag item list */
+.drag-item-list {
+  width: 95%;
+}
+
+.drag-item {
+  color: #fff;
+  background: rgba(0, 0, 0, 0.1);
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 10px;
+  color: #333;
+}
+
+/* Add btn group */
+.add-btn-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.add-item {
+  border: 0;
+  outline: 0;
+  background: #333;
+  color: #fff;
+  width: max-content;
+  padding: 5px 10px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.add-item:hover {
+  filter: brightness(120%);
+}
+
+.save-item {
+  border: 0;
+  outline: 0;
+  background: green;
+  color: #fff;
+  width: max-content;
+  padding: 5px 10px;
+  border-radius: 10px;
+}
+
+.save-item:hover {
+  filter: brightness(120%);
+}
+
+/* Add container */
+.add-container {
+  border: 1px solid #000;
+  margin: 10px 0;
+  padding: 10px;
 }
