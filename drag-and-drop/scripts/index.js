@@ -18,7 +18,7 @@ let inProgressItems = [];
 let completedItems = [];
 let onHoldItems = [];
 
-let isFirstLoad = false;
+let isFirstLoad = true;
 
 // store the currrent dragged item
 let currentDraggedItem;
@@ -96,6 +96,38 @@ function drop(e) {
 
   // apend the current dragged item to the current droppable column
   currentDroppableColumn.appendChild(currentDraggedItem);
+
+  // rebuild the columns ad updateBoard()
+  rebuildColumns();
+}
+
+/* Helper function to rebuild columns */
+function rebuildColumns() {
+  // rebuild the columns
+
+  // first reset everything
+  backlogItems = [];
+  inProgressItems = [];
+  completedItems = [];
+  onHoldItems = [];
+
+  backlogItems = Array.from(backlogListEl.children).map(
+    (item) => item.textContent
+  );
+
+  completedItems = Array.from(completedListEl.children).map(
+    (item) => item.textContent
+  );
+
+  inProgressItems = Array.from(progressListEl.children).map(
+    (item) => item.textContent
+  );
+
+  onHoldItems = Array.from(onHoldListEl.children).map(
+    (item) => item.textContent
+  );
+
+  updateBoard();
 }
 
 /* Helper function to create a drag item */
@@ -124,6 +156,8 @@ function appendListItemsToParent(parentEl, listItem) {
     const newItem = createDragListItem({ textContent: item, id: index });
     listItemsFragment.appendChild(newItem);
   });
+  // reset the child first
+  parentEl.textContent = '';
   // append the fragment on parent
   parentEl.appendChild(listItemsFragment);
 }
@@ -131,12 +165,13 @@ function appendListItemsToParent(parentEl, listItem) {
 /* Helper function to update the board */
 function updateBoard() {
   // get saved columns from storage
-  getSavedBoardColumnsFromStorage();
 
-  if (!isFirstLoad) {
-    updateBoardColumnsInStorage();
-    isFirstLoad = true;
+  if (isFirstLoad) {
+    getSavedBoardColumnsFromStorage();
+    isFirstLoad = false;
   }
+
+  updateBoardColumnsInStorage();
 
   // update DOM for backlog board
   appendListItemsToParent(backlogListEl, backlogItems);
@@ -181,4 +216,5 @@ function setupDragAndDrop() {
 }
 
 setupDragAndDrop();
+
 updateBoard();
