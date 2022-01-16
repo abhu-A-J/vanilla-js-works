@@ -121,7 +121,13 @@ h1 {
 
 /* Drag item list */
 .drag-item-list {
-  width: 95%;
+  width: 100%;
+  padding-right: 5px;
+}
+
+.drag-item-list.over {
+  background: rgba(233, 123, 233, 0.2);
+  padding: 10px 20px;
 }
 
 .drag-item {

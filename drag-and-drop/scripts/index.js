@@ -1,8 +1,16 @@
 /* Get required DOM Elements */
-const backlogList = document.querySelector('#backlog-list');
-const progressList = document.querySelector('#progress-list');
-const completedList = document.querySelector('#completed-list');
-const onHoldList = document.querySelector('#onhold-list');
+const backlogListEl = document.querySelector('#backlog-list');
+const progressListEl = document.querySelector('#progress-list');
+const completedListEl = document.querySelector('#completed-list');
+const onHoldListEl = document.querySelector('#onhold-list');
+
+/* All droppable columns */
+const allDroppableColumns = [
+  backlogListEl,
+  completedListEl,
+  progressListEl,
+  onHoldListEl,
+];
 
 /* Store board items */
 let backlogItems = [];
@@ -11,6 +19,10 @@ let completedItems = [];
 let onHoldItems = [];
 
 let isFirstLoad = false;
+
+// store the currrent dragged item
+let currentDraggedItem;
+let currentDroppableColumn;
 
 /* Helper function to update columns items to local storage */
 function updateBoardColumnsInStorage() {
@@ -46,9 +58,49 @@ function getSavedBoardColumnsFromStorage() {
   }
 }
 
+/* Helper function to remove over class */
+function removeOverClass() {}
+
+/* Listener to make columns droppable */
+function allowDrop(e) {
+  e.preventDefault();
+}
+
+/* Listener for when item starts to drag */
+function handleItemDragStart(e) {
+  currentDraggedItem = e.target;
+  // console.log('Item dragged', e.target);
+}
+
+/* Listenrs for when drag item enter droppable zone */
+function handleOnDragEnter(e, droppableEl) {
+  if (droppableEl) {
+    allDroppableColumns.forEach((column) => {
+      if (column === droppableEl) {
+        droppableEl.classList.add('over');
+      } else {
+        column.classList.remove('over');
+      }
+    });
+    // store the current droppable column
+    currentDroppableColumn = droppableEl;
+  }
+}
+
+/* Listeners when drop event happens */
+function drop(e) {
+  e.preventDefault();
+
+  // remove the over class on drop
+  currentDroppableColumn.classList.remove('over');
+
+  // apend the current dragged item to the current droppable column
+  currentDroppableColumn.appendChild(currentDraggedItem);
+}
+
 /* Helper function to create a drag item */
 function createDragListItem(properties) {
-  const { textContent } = properties;
+  const { textContent, id } = properties;
 
   // create an li with class 'drag-item'
   const dragListItem = document.createElement('li');
@@ -56,6 +108,10 @@ function createDragListItem(properties) {
 
   // add the properties given
   dragListItem.textContent = textContent;
+  dragListItem.draggable = true;
+  dragListItem.id = id;
+
+  dragListItem.addEventListener('dragstart', handleItemDragStart);
 
   return dragListItem;
 }
@@ -64,8 +120,8 @@ function createDragListItem(properties) {
 function appendListItemsToParent(parentEl, listItem) {
   // create fragment to append all childs
   const listItemsFragment = document.createDocumentFragment();
-  listItem.forEach((item) => {
-    const newItem = createDragListItem({ textContent: item });
+  listItem.forEach((item, index) => {
+    const newItem = createDragListItem({ textContent: item, id: index });
     listItemsFragment.appendChild(newItem);
   });
   // append the fragment on parent
@@ -83,16 +139,46 @@ function updateBoard() {
   }
 
   // update DOM for backlog board
-  appendListItemsToParent(backlogList, backlogItems);
+  appendListItemsToParent(backlogListEl, backlogItems);
 
   // update DOM for progress board
-  appendListItemsToParent(progressList, inProgressItems);
+  appendListItemsToParent(progressListEl, inProgressItems);
 
   // update DOM for the completed board
-  appendListItemsToParent(completedList, completedItems);
+  appendListItemsToParent(completedListEl, completedItems);
 
   // update DOM for the on hold board
-  appendListItemsToParent(onHoldList, onHoldItems);
+  appendListItemsToParent(onHoldListEl, onHoldItems);
 }
 
+/* Make the columns list item dropabble and also listen to on drop event */
+function setupDragAndDrop() {
+  /* Allow columns to be droppable */
+  backlogListEl.addEventListener('dragover', allowDrop);
+  completedListEl.addEventListener('dragover', allowDrop);
+  progressListEl.addEventListener('dragover', allowDrop);
+  onHoldListEl.addEventListener('dragover', allowDrop);
+
+  /* Attach event drop event handler on all drag columns list */
+  backlogListEl.addEventListener('drop', drop);
+  completedListEl.addEventListener('drop', drop);
+  progressListEl.addEventListener('drop', drop);
+  onHoldListEl.addEventListener('drop', drop);
+
+  /* Show visuals that column list can be dropped on */
+  backlogListEl.addEventListener('dragenter', (e) => {
+    handleOnDragEnter(e, backlogListEl);
+  });
+  completedListEl.addEventListener('dragenter', (e) => {
+    handleOnDragEnter(e, completedListEl);
+  });
+  progressListEl.addEventListener('dragenter', (e) => {
+    handleOnDragEnter(e, progressListEl);
+  });
+  onHoldListEl.addEventListener('dragenter', (e) => {
+    handleOnDragEnter(e, onHoldListEl);
+  });
+}
+
+setupDragAndDrop();
 updateBoard();
