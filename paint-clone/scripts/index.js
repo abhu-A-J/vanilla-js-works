@@ -241,5 +241,15 @@ clearStorageBtn.addEventListener('click', () => {
   setTimeout(switchBackToBrush, 1000);
 });
 
+/* Listen to download as image btn click */
+downloadBtn.addEventListener('click', () => {
+  const imageDatUrl = canvas.toDataURL('image/png');
+  downloadBtn.href = imageDatUrl;
+  downloadBtn.download = 'my-canvas.png';
+
+  activeToolEl.textContent = 'Downloaded';
+  setTimeout(switchBackToBrush, 1000);
+});
+
 // on load create canvas
 createCanvas();
