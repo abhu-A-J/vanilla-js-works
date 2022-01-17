@@ -24,3 +24,11 @@ const clearStorageBtn = document.getElementById('clear-storage');
 const downloadBtn = document.getElementById('download');
 
 const { body } = document;
+
+/* Variables to store info on the current tool */
+let currentSize = 10;
+let bucketColor = '#FFFFFF';
+let currentColor = '#A51DAB';
+let isEraser = false;
+let isMouseDown = false;
+let drawnArray = [];
