@@ -94,6 +94,44 @@ function getMousePosition(event) {
   };
 }
 
+/* Helper function to store drawing paths */
+function storeDrawingPaths(x, y, size, color, isEraser) {
+  const line = { x, y, size, color, isEraser };
+  drawnArray.push(line);
+}
+
+/* Helper fuynction tomrestore canvas based on stored drawing paths */
+function restoreCanvas() {
+  for (let i = 1; i < drawnArray.length; i++) {
+    context.beginPath();
+
+    context.moveTo(drawnArray[i - 1].x, drawnArray[i - 1].y);
+
+    context.lineWidth = drawnArray[i].size;
+
+    context.lineCap = 'round';
+
+    if (drawnArray[i].isEraser) {
+      context.strokeStyle = bucketColor;
+    } else {
+      context.strokeStyle = drawnArray[i].color;
+    }
+
+    context.lineTo(drawnArray[i].x, drawnArray[i].y);
+    context.stroke();
+  }
+}
+
+/* Listen to clear canvas button */
+clearCanvasBtn.addEventListener('click', () => {
+  createCanvas();
+  drawnArray = [];
+  activeToolEl.textContent = 'Canvas Cleared';
+  setTimeout(() => {
+    switchBackToBrush();
+  }, 1000);
+});
+
 /* Listen to brush icon click */
 brushIcon.addEventListener('click', switchBackToBrush);
 
@@ -133,6 +171,9 @@ bucketColorBtn.addEventListener('change', (e) => {
   bucketColor = `#${e.target.value}`;
   // recreate canvas
   createCanvas();
+
+  // restore canvas
+  restoreCanvas();
 });
 
 /* Listen to mouse move event */
@@ -142,6 +183,11 @@ canvas.addEventListener('mousemove', (e) => {
 
     context.lineTo(x, y);
     context.stroke();
+
+    // store the path
+    storeDrawingPaths(x, y, currentSize, currentColor, isEraser);
+  } else {
+    storeDrawingPaths(undefined);
   }
 });
 
