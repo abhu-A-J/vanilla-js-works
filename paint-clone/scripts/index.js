@@ -212,5 +212,34 @@ canvas.addEventListener('mouseup', (e) => {
   isMouseDown = false;
 });
 
+/* Listen to click on save to storage btn */
+saveStorageBtn.addEventListener('click', () => {
+  localStorage.setItem('canvas', JSON.stringify(drawnArray));
+  activeToolEl.textContent = 'Canvas Saved';
+  setTimeout(switchBackToBrush, 1000);
+});
+
+/* Listen to click on load from storage btn */
+loadStorageBtn.addEventListener('click', () => {
+  const storedCanvas = localStorage.getItem('canvas');
+
+  if (storedCanvas) {
+    drawnArray = JSON.parse(storedCanvas);
+    restoreCanvas();
+    activeToolEl.textContent = 'Canvas Loaded';
+    setTimeout(switchBackToBrush, 1000);
+  } else {
+    activeToolEl.textContent = 'No Canvas Found ';
+    setTimeout(switchBackToBrush, 1000);
+  }
+});
+
+/* Listen to clear storae btn click */
+clearStorageBtn.addEventListener('click', () => {
+  localStorage.removeItem('canvas');
+  activeToolEl.textContent = 'Storage Cleared';
+  setTimeout(switchBackToBrush, 1000);
+});
+
 // on load create canvas
 createCanvas();
