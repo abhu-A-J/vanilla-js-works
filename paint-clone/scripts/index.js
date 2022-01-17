@@ -32,3 +32,23 @@ let currentColor = '#A51DAB';
 let isEraser = false;
 let isMouseDown = false;
 let drawnArray = [];
+
+/* Create the canvas elemnet */
+const canvas = document.createElement('canvas');
+canvas.setAttribute('id', 'canvas');
+
+const context = canvas.getContext('2d');
+
+/* Helper function create canvas */
+function createCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight - 50;
+
+  context.fillStyle = bucketColor;
+  context.fillRect(0, 0, canvas.width, canvas.height);
+
+  body.appendChild(canvas);
+}
+
+// on load create canvas
+createCanvas();
