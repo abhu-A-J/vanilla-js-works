@@ -70,12 +70,28 @@ function switchBackToBrush() {
   eraser.style.color = 'white';
   activeToolEl.textContent = 'Brush';
 
-  currentColor = `${brushColorBtn.value}`;
+  currentColor = `#${brushColorBtn.value}`;
+
   currentSize = 10;
 
   brushSlider.value = currentSize;
 
   displayBrushSize();
+}
+
+/* Helper function to get mouse position relative to canvas */
+function getMousePosition(event) {
+  // get the position for the canvas
+  const { left, top } = canvas.getBoundingClientRect();
+
+  // get where in viewport the cliked happened
+  const { clientX, clientY } = event;
+
+  // send back relative value of click in terms of canvas
+  return {
+    x: clientX - left,
+    y: clientY - top,
+  };
 }
 
 /* Listen to brush icon click */
@@ -117,6 +133,37 @@ bucketColorBtn.addEventListener('change', (e) => {
   bucketColor = `#${e.target.value}`;
   // recreate canvas
   createCanvas();
+});
+
+/* Listen to mouse move event */
+canvas.addEventListener('mousemove', (e) => {
+  if (isMouseDown) {
+    const { x, y } = getMousePosition(e);
+
+    context.lineTo(x, y);
+    context.stroke();
+  }
+});
+
+/* Listen to mouse press event */
+canvas.addEventListener('mousedown', (e) => {
+  // set the global variable
+  isMouseDown = true;
+  const { x, y } = getMousePosition(e);
+
+  context.lineWidth = currentSize;
+  context.lineCap = 'round';
+  context.strokeStyle = currentColor;
+
+  context.moveTo(x, y);
+
+  context.beginPath();
+});
+
+/* Listen to mouse release event */
+canvas.addEventListener('mouseup', (e) => {
+  // set the global variable
+  isMouseDown = false;
 });
 
 // on load create canvas
