@@ -48,7 +48,68 @@ function createCanvas() {
   context.fillRect(0, 0, canvas.width, canvas.height);
 
   body.appendChild(canvas);
+
+  // the moment the canmvas is created we set the current tool to brush
+  switchBackToBrush();
 }
+
+/* Helper function to change brush size */
+function displayBrushSize() {
+  if (brushSlider.value < 10) {
+    brushSize.textContent = `0${brushSlider.value}`;
+  } else {
+    brushSize.textContent = brushSlider.value;
+  }
+}
+
+/* Helper function to switch back to brush tool */
+function switchBackToBrush() {
+  isEraser = false;
+
+  brushIcon.style.color = 'black';
+  eraser.style.color = 'white';
+  activeToolEl.textContent = 'Brush';
+
+  currentColor = `${brushColorBtn.value}`;
+  currentSize = 10;
+
+  brushSlider.value = currentSize;
+
+  displayBrushSize();
+}
+
+/* Listen to brush icon click */
+brushIcon.addEventListener('click', switchBackToBrush);
+
+/* Listen to eraser btn click */
+eraser.addEventListener('click', () => {
+  // set the eraser to true
+  isEraser = true;
+
+  // change properties for brush and eraser icon
+  brushIcon.style.color = 'white';
+  eraser.style.color = 'black';
+  activeToolEl.textContent = 'Eraser';
+
+  // eraser is brush with same color as background
+  currentColor = bucketColor;
+  currentSize = 50;
+});
+
+/* Listen to brush color change */
+brushColorBtn.addEventListener('change', (e) => {
+  // set isEraser to false
+  isEraser = false;
+
+  // set the current color
+  currentColor = `#${e.target.value}`;
+});
+
+/* Listen to brush size change */
+brushSlider.addEventListener('change', (e) => {
+  currentSize = e.target.value;
+  displayBrushSize();
+});
 
 /* Listen to background (bucket) color change */
 bucketColorBtn.addEventListener('change', (e) => {
