@@ -50,5 +50,13 @@ function createCanvas() {
   body.appendChild(canvas);
 }
 
+/* Listen to background (bucket) color change */
+bucketColorBtn.addEventListener('change', (e) => {
+  // format the bucket color to add hex in front of it
+  bucketColor = `#${e.target.value}`;
+  // recreate canvas
+  createCanvas();
+});
+
 // on load create canvas
 createCanvas();
